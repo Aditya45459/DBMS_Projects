@@ -1,55 +1,39 @@
-# DBMS_Projects
-create DATABASE IF NOT EXISTS
-portfolio_db;
-USE portfolio_db;
+# 📈 Financial Portfolio Management System (SQL)
 
-CREATE TABLE portfolio (
-    portfolio_id INT PRIMARY KEY AUTO_INCREMENT,
-    user_name VARCHAR(50),
-    total_value DECIMAL(10,2)
-);
+Ye ek DBMS project hai jo users ke financial assets, investments, aur transactions ko manage aur track karne ke liye design kiya gaya hai.
 
-CREATE TABLE asset (
-    asset_id INT PRIMARY KEY AUTO_INCREMENT,
-    name VARCHAR(50),
-    type VARCHAR(50),
-    market_price DECIMAL(10,2)
-);
+## 🚀 Features
+* **Database Setup:** Automatic database aur table creation logic (`IF NOT EXISTS`).
+* **Portfolio Tracking:** User-wise portfolio management.
+* **Asset Categorization:** Stocks, Commodities, aur baaki assets ka detailed record.
+* **Investment Logs:** Quantity aur purchase price ke saath investment tracking.
+* **Transaction History:** Saari buy/sell activities ka chronological record.
 
-CREATE TABLE investment (
-    investment_id INT PRIMARY KEY AUTO_INCREMENT,
-    portfolio_id INT,
-    asset_id INT,
-    quantity INT,
-    purchase_price DECIMAL(10,2),
-    FOREIGN KEY (portfolio_id) REFERENCES portfolio(portfolio_id),
-    FOREIGN KEY (asset_id) REFERENCES asset(asset_id)
-);
+## 📊 Database Schema (ER Diagram)
+Project ka structure niche diye gaye tables par based hai:
+* `portfolio`: User ki basic details aur total value.
+* `asset`: Assets ki market price aur type.
+* `investment`: Portfolio aur Assets ka link (Relationship table).
+* `transaction`: Har transaction ka audit trail.
 
-CREATE TABLE transaction (
-    transaction_id INT PRIMARY KEY AUTO_INCREMENT,
-    investment_id INT,
-    type VARCHAR(10),
-    amount DECIMAL(10,2),
-    date DATE,
-    FOREIGN KEY (investment_id) REFERENCES investment(investment_id)
-);
 
--- Sample Data
-INSERT INTO portfolio (user_name, total_value) VALUES ('Aditya', 0);
 
-INSERT INTO asset (name, type, market_price) VALUES 
-('Stock A', 'Stock', 100),
-('Gold', 'Commodity', 5000);
+## 🛠️ Tech Stack
+* **Language:** SQL (Structured Query Language)
+* **Database:** MySQL
+* **Tools:** MySQL Workbench, GitHub Codespaces
 
-INSERT INTO investment (portfolio_id, asset_id, quantity, purchase_price) VALUES 
-(1,1,10,90),
-(1,2,2,4500);
+## ⚙️ How to Use
+1. Is repository ko clone karein ya `Mainportfolio_db.sql` file download karein.
+2. Apne MySQL Workbench mein file ko open karein.
+3. Poore script ko select karke `Execute` (Lightning icon) par click karein.
+4. Tables aur Sample data automatically populate ho jayenge.
 
-INSERT INTO transaction (investment_id, type, amount, date) VALUES 
-(1,'BUY',900,'2024-01-01'),
-(2,'BUY',9000,'2024-02-01');
-
-SELECT * FROM portfolio;
+## 📝 Sample Queries
+Data check karne ke liye aap ye commands use kar sakte hain:
+```sql
+-- Saare assets dekhne ke liye
 SELECT * FROM asset;
-SELECT * FROM investment;
+
+-- User ka total portfolio value check karne ke liye
+SELECT user_name, total_value FROM portfolio;
